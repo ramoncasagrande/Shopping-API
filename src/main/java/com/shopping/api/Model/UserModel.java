@@ -12,6 +12,9 @@ public class UserModel {
     private Date dataCadastro;
     
     
+    public UserModel() {
+    }
+
     public UserModel(String nome, String cpf, String endereco, String email, String telefone, Date dataCadastro) {
         this.nome = nome;
         this.cpf = cpf;
