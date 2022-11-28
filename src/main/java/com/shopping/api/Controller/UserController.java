@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,5 +69,16 @@ public class UserController {
         userModel.setDataCadastro(new Date());
         userList.add(userModel);
         return userModel;
+    }
+
+    @DeleteMapping("/delUser/{cpf}")
+    public boolean deleteUser(@PathVariable String cpf){
+        for(UserModel user: userList){
+            if(user.getCpf().equals(cpf)){
+                userList.remove(user);
+                return true;
+            }
+        }
+        return false;
     }
 }
