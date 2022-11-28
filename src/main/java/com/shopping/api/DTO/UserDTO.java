@@ -1,8 +1,8 @@
-package com.shopping.api.Model;
+package com.shopping.api.DTO;
 
 import java.util.Date;
 
-public class UserModel {
+public class UserDTO {
 
     private String nome;
     private String cpf;
@@ -12,10 +12,10 @@ public class UserModel {
     private Date dataCadastro;
     
     
-    public UserModel() {
+    public UserDTO() {
     }
 
-    public UserModel(String nome, String cpf, String endereco, String email, String telefone, Date dataCadastro) {
+    public UserDTO(String nome, String cpf, String endereco, String email, String telefone, Date dataCadastro) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
