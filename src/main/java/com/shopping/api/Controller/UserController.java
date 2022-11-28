@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.api.Model.UserModel;
@@ -60,5 +62,11 @@ public class UserController {
         }
         return null;
     }
-    
+
+    @PostMapping("/newUser")
+    public UserModel insertUser(@RequestBody UserModel userModel){
+        userModel.setDataCadastro(new Date());
+        userList.add(userModel);
+        return userModel;
+    }
 }
