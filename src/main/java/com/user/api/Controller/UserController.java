@@ -1,4 +1,4 @@
-package com.shopping.api.Controller;
+package com.user.api.Controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shopping.api.DTO.UserDTO;
+import com.user.api.DTO.UserDTO;
 
 import jakarta.annotation.PostConstruct;
 

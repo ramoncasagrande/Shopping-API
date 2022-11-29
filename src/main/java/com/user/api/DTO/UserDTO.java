@@ -1,4 +1,4 @@
-package com.shopping.api.DTO;
+package com.user.api.DTO;
 
 import java.util.Date;
 
