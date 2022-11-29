@@ -1,7 +1,5 @@
 package com.user.api.Controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,76 +7,46 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.user.api.DTO.UserDTO;
+import com.user.api.Service.UserService;
 
-import jakarta.annotation.PostConstruct;
 
 @RestController
 public class UserController {
 
-    @GetMapping("/")
-    public String getMessage(){
-        return "Spring Boot is Working";
+    private UserService userService;
+
+    @GetMapping("/user/")
+    public List<UserDTO> getUsers(){
+        List<UserDTO> users = userService.getAll();
+        return users;
     }
 
-    public static List<UserDTO> userList = new ArrayList<UserDTO>();
-
-    @PostConstruct
-    public void initialList(){
-        UserDTO userDTO = new UserDTO();
-            userDTO.setNome("Ramon Casagrande");
-            userDTO.setCpf("04191679945");
-            userDTO.setEndereco("Rua Felipe Schmidt, 249");
-            userDTO.setEmail("ramon@email.com");
-            userDTO.setTelefone("3413-8848");
-            userDTO.setDataCadastro(new Date());
-
-            userList.add(userDTO);
-
-        UserDTO userDTO2 = new UserDTO();
-            userDTO2.setNome("Josimara Vagner");
-            userDTO2.setCpf("05539299922");
-            userDTO2.setEndereco("Rua Cel. Pedro Benedet, 333");
-            userDTO2.setEmail("josy@email.com");
-            userDTO2.setTelefone("3413-8848");
-            userDTO2.setDataCadastro(new Date());
-
-            userList.add(userDTO2);
+    @GetMapping("/user/{id}")
+    public UserDTO findById(@PathVariable Long id){
+        return userService.findById(id);
     }
 
-    @GetMapping("/users")
-    public List<UserDTO> getUser(){
-        return userList;
+    @PostMapping("/user")
+    public UserDTO newUser(@RequestBody UserDTO userDTO){
+        return userService.save(userDTO);
     }
 
-    @GetMapping("/users/{cpf}")
-    public UserDTO getUserCpf(@PathVariable String cpf){
-
-        for(UserDTO user:userList){
-            if(user.getCpf().equals(cpf)){
-                return user;
-            }
-        }
-        return null;
+    @GetMapping("/user/cpf/{cpf}")
+    public UserDTO findByCpf(@PathVariable String cpf){
+        return userService.findByCpf(cpf);
     }
 
-    @PostMapping("/newUser")
-    public UserDTO insertUser(@RequestBody UserDTO userModel){
-        userModel.setDataCadastro(new Date());
-        userList.add(userModel);
-        return userModel;
+    @DeleteMapping("/user/{id}")
+    public UserDTO deleteUser(@PathVariable Long id){
+        return userService.delete(id);
     }
 
-    @DeleteMapping("/delUser/{cpf}")
-    public boolean deleteUser(@PathVariable String cpf){
-        for(UserDTO user: userList){
-            if(user.getCpf().equals(cpf)){
-                userList.remove(user);
-                return true;
-            }
-        }
-        return false;
+    @GetMapping("/users/search")
+    public List<UserDTO> queryByName(@RequestParam(name="nome", required = true) String nome){
+        return userService.queryByName(nome);
     }
 }
