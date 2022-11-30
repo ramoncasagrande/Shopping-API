@@ -1,5 +1,6 @@
 package com.user.api.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +35,9 @@ public class UserService {
     }
 
     public UserDTO save(UserDTO userDTO){
-        User user = userRepository.save(User.convert(userDTO));
+        User user = User.convert(userDTO);
+        user.setDataCadastro(new Date());
+        user = userRepository.save(user);
         return UserDTO.convert(user);
     }
 
